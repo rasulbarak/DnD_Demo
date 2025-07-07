@@ -34,13 +34,17 @@ class Wizard
         Casts a spell on an opponent, decreases mana. Will decrease the health of the opponent if cast.
     */
     {
-        if (mana != 0)
+        if ((mana != 0) && (alive == true))
         {
             Console.WriteLine(name + " casts " + favSpell + " at " + opponent.name + ".");
             experience += 0.3f;
             mana--;
             opponent.health -= 20;
             checkHealth(opponent);
+        }
+        else if (alive == false)
+        {
+            Console.WriteLine("\nDead wizards can't cast spells!\nWizards can medidate to regain health.\n");
         }
         else
         {
@@ -53,17 +57,46 @@ class Wizard
     {
         if (opponent.health <= 0)
         {
-            Console.WriteLine("\n" + opponent.name + " is dead.\nWizards can meditate to regenerate health.");
+            Console.WriteLine(opponent.name + " is dead.");
             opponent.alive = false;
         }
     }
 
-    public void meditate()
+    public void meditate(int hours = 1)
     /*
-        Meditation adds to mana as well as health (if less than full)
+        Meditation adds to mana, depending on hours meditated.
     */
     {
-        
+        if (alive == false)
+        {
+            alive = true;   // wizard might be dead, make them alive
+            health = 100;
+            Console.WriteLine(name + " is now alive.");
+        }
+
+        switch (hours)
+        {
+            case 1:
+                mana = 1;
+                break;
+            case 2:
+                mana = 2;
+                break;
+            case 3:
+                mana = 3;
+                break;
+            case 4:
+                mana = 4;
+                break;
+            case 5:
+                mana = 5;
+                break;
+            case > 5:
+                // if hours is greater than 5
+                mana = 6;
+                break;
+        }
+        Console.WriteLine(name + " has added " + hours + " to their mana.");
     }
 
 }
@@ -78,7 +111,13 @@ class Program
         wizard1.castSpellAtOpp(wizard2);
         wizard1.castSpellAtOpp(wizard2);
         wizard1.castSpellAtOpp(wizard2);
+        wizard2.castSpellAtOpp(wizard1);
+        wizard1.meditate(4);
         wizard1.castSpellAtOpp(wizard2);
         wizard1.castSpellAtOpp(wizard2);
+        wizard1.castSpellAtOpp(wizard2);
+
+        wizard2.castSpellAtOpp(wizard1);
+
     }
 }
