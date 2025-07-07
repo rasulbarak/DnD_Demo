@@ -115,24 +115,30 @@ class Program
 {
     static void Main(string[] args)
     {
-        Wizard wizard1 = new Wizard("Jacquine", 123, "Expertomo Topeno");
-        Wizard wizard2 = new Wizard("Potter Parry", 19, "Hocus Pocus");
+        Console.WriteLine("Welcome to our DnD Game!.\nPress enter to continue.");
+        Console.ReadLine();
 
-        wizard1.castSpellAtOpp(wizard2);
-        wizard1.castSpellAtOpp(wizard2);
-        wizard1.castSpellAtOpp(wizard2);
-        wizard2.castSpellAtOpp(wizard1);
-        wizard1.meditate(4);
-        wizard1.castSpellAtOpp(wizard2);
-        wizard1.castSpellAtOpp(wizard2);
-        wizard1.castSpellAtOpp(wizard2);
+        Console.WriteLine("How many players will there be? ");
+        int playerNum = Convert.ToInt32(Console.ReadLine());
 
-        wizard2.castSpellAtOpp(wizard1);
-        wizard2.meditate(10);
-        wizard2.castSpellAtOpp(wizard1);
-        wizard2.castSpellAtOpp(wizard1);
-        wizard2.castSpellAtOpp(wizard1);
-        wizard2.castSpellAtOpp(wizard1);
-        wizard2.castSpellAtOpp(wizard1);
+        // create one wizard per player
+        Wizard[] players = new Wizard[playerNum];   // will hold characters in the game
+        string wizardName;  // user will choose thier name for their character
+        int wizardAge;
+        string wizardSpell;
+        for (int i = 0; i < playerNum; i++)
+        {
+            Console.Write("\nWhat will be your Wizard's name player " + (i + 1) + ": ");
+            wizardName = Console.ReadLine();
+
+            Console.Write("How old is your wizard: ");
+            wizardAge = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("And what is your chosen spell: ");
+            wizardSpell = Console.ReadLine();
+
+            players[i] = new Wizard(wizardName, wizardAge, wizardSpell);
+        }
+        Console.ReadLine();
     }
 }
