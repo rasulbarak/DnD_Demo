@@ -1,4 +1,6 @@
-﻿using System.Runtime.Intrinsics.X86;
+﻿using System.ComponentModel.Design;
+using System.Runtime.Intrinsics.X86;
+using Microsoft.VisualBasic;
 
 namespace classes3;
 
@@ -11,6 +13,9 @@ class Wizard
     public int health = 100;
     public int mana = 2;
     public float experience = 0;
+    public bool alive = true;
+
+    public static int Count = 0;
 
     // member functions
     public Wizard(string _name, int _age, string _favSpell)
@@ -21,6 +26,7 @@ class Wizard
         name = _name;
         age = _age;
         favSpell = _favSpell;
+        Count++;
     }
 
     public void castSpellAtOpp(Wizard opponent)
@@ -37,7 +43,11 @@ class Wizard
     public void checkHealth(Wizard opponent)
     // checks health of the Wizard that has taken damage
     {
-        
+        if (opponent.health <= 0)
+        {
+            Console.WriteLine("\n" + opponent.name + " is dead.\nWizards can meditate to regenerate health.");
+            opponent.alive = false;
+        }
     }
 }
 
@@ -45,6 +55,13 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+        Wizard wizard1 = new Wizard("Jacquine", 123, "Expertomo Topeno");
+        Wizard wizard2 = new Wizard("Potter Parry", 19, "Hocus Pocus");
+
+        wizard1.castSpellAtOpp(wizard2);
+        wizard1.castSpellAtOpp(wizard2);
+        wizard1.castSpellAtOpp(wizard2);
+        wizard1.castSpellAtOpp(wizard2);
+        wizard1.castSpellAtOpp(wizard2);
     }
 }
