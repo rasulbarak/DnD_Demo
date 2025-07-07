@@ -33,23 +33,8 @@ class Wizard
     /*
         Casts a spell on an opponent, decreases mana. Will decrease the health of the opponent if cast.
     */
-    {
-        if ((mana != 0) && (alive == true))
-        {
-            Console.WriteLine(name + " casts " + favSpell + " at " + opponent.name + ".");
-            experience += 0.3f;
-            mana--;
-            opponent.health -= 20;
-            checkHealth(opponent);
-        }
-        else if (alive == false)
-        {
-            Console.WriteLine("\nDead wizards can't cast spells!\nWizards can medidate to regain health.\n");
-        }
-        else
-        {
-            Console.WriteLine(name + " must medidate to regain mana!");
-        }
+    {   
+        
     }
 
     public void checkHealth(Wizard opponent)
@@ -77,24 +62,29 @@ class Wizard
         switch (hours)
         {
             case 1:
-                mana = 1;
+                mana += 1;
                 break;
             case 2:
-                mana = 2;
+                mana += 2;
                 break;
             case 3:
-                mana = 3;
+                mana += 3;
                 break;
             case 4:
-                mana = 4;
+                mana += 4;
                 break;
             case 5:
-                mana = 5;
+                mana += 5;
                 break;
             case > 5:
                 // if hours is greater than 5
-                mana = 6;
+                mana += 6;
                 break;
+        }
+        // cap mana at 10;
+        if (mana < 10)
+        {
+            mana = 10;
         }
         Console.WriteLine(name + " has added " + hours + " to their mana.");
     }
@@ -117,6 +107,10 @@ class Program
         wizard1.castSpellAtOpp(wizard2);
         wizard1.castSpellAtOpp(wizard2);
 
+        wizard2.castSpellAtOpp(wizard1);
+        wizard2.meditate();
+        wizard2.castSpellAtOpp(wizard1);
+        wizard2.castSpellAtOpp(wizard1);
         wizard2.castSpellAtOpp(wizard1);
 
     }
