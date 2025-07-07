@@ -31,13 +31,21 @@ class Wizard
 
     public void castSpellAtOpp(Wizard opponent)
     /*
-        Casts a spell on an opponent if given. Will decrease the health of the opponent.
+        Casts a spell on an opponent, decreases mana. Will decrease the health of the opponent if cast.
     */
     {
-        Console.WriteLine(name + " casts " + favSpell + " at " + opponent.name + ".");
-        experience += 0.3f;
-        opponent.health -= 20;
-        checkHealth(opponent);
+        if (mana != 0)
+        {
+            Console.WriteLine(name + " casts " + favSpell + " at " + opponent.name + ".");
+            experience += 0.3f;
+            mana--;
+            opponent.health -= 20;
+            checkHealth(opponent);
+        }
+        else
+        {
+            Console.WriteLine(name + " must medidate to regain mana!");
+        }
     }
 
     public void checkHealth(Wizard opponent)
@@ -49,6 +57,15 @@ class Wizard
             opponent.alive = false;
         }
     }
+
+    public void meditate()
+    /*
+        Meditation adds to mana as well as health (if less than full)
+    */
+    {
+        
+    }
+
 }
 
 class Program
