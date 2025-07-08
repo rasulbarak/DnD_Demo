@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.Design;
+using System.Net.Mail;
+using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics.X86;
 using Microsoft.VisualBasic;
 
@@ -139,6 +141,40 @@ class Program
 
             players[i] = new Wizard(wizardName, wizardAge, wizardSpell);
         }
+
+        printInfo(players);
+        // start the game
+
+
         Console.ReadLine();
+    }
+
+    static void printInfo(Wizard[] players)
+    /*
+        Print info of all wizards.
+    */
+    {
+        string name;
+        int health;
+        int mana;
+        float experience;
+        string condition = "Alive"; // assume alive
+        for (int i = 0; i < players.Length; i++)
+        {
+            name = players[i].name;
+            health = players[i].health;
+            mana = players[i].mana;
+            experience = players[i].experience;
+            if (!players[i].alive)
+            {
+                condition = "Dead"; // assign dead if dead
+            }
+            Console.WriteLine("------------------");
+            Console.WriteLine("Player: " + name);
+            Console.WriteLine("Health: " + health);
+            Console.WriteLine("Mana: " + mana);
+            Console.WriteLine("Experience: " + experience);
+            Console.WriteLine("Condition: " + condition);
+        }
     }
 }
