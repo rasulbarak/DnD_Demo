@@ -143,10 +143,54 @@ class Program
         }
 
         printInfo(players);
+
         // start the game
+        // flip the coin to see who starts
+        Random numberGen = new Random();
+        int playerTurn = numberGen.Next(0, players.Length);
+        Console.WriteLine(players[playerTurn].name + " will start.");
 
+        Console.WriteLine("1. Cast Spell");
+        Console.WriteLine("2. Medidate");
+        Console.WriteLine("3. Skip Turn");
+        Console.WriteLine("At any point, enter 0 to quit.");
+        int choice = Convert.ToInt32(Console.ReadLine());
+        Wizard currPlayer;
 
-        Console.ReadLine();
+        while (choice != 0)
+        {
+            currPlayer = players[playerTurn];
+            if (choice == 1)
+            // player has chosen to cast a spell
+            {
+                Console.WriteLine(currPlayer.name + " has chosen to cast " + currPlayer.favSpell + ".");
+            }
+            else if (choice == 2)
+            // player has chosen to medidate
+            {
+                Console.WriteLine(players[playerTurn].name + " has chosen to meditate.");
+            }
+            else if (choice == 3)
+            // player has chosen to skip their turn
+            {
+                Console.WriteLine(players[playerTurn].name + " has chosen to skip their turn.");
+            }
+            else
+            {
+                choice = 0;
+                continue;
+            }
+            // go to next player
+            playerTurn = (playerTurn + 1) % players.Length;
+            Console.WriteLine("Its now " + players[playerTurn].name + "'s turn.");
+            Console.WriteLine("1. Cast Spell");
+            Console.WriteLine("2. Medidate");
+            Console.WriteLine("3. Skip Turn");
+            // ask for options
+            choice = Convert.ToInt32(Console.ReadLine());
+        }
+
+        Console.WriteLine("\nThank you for playing!");
     }
 
     static void printInfo(Wizard[] players)
@@ -176,5 +220,6 @@ class Program
             Console.WriteLine("Experience: " + experience);
             Console.WriteLine("Condition: " + condition);
         }
+        Console.WriteLine("------------------");
     }
 }
